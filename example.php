@@ -19,8 +19,7 @@
             if($players <= 0)  $players = 16;
 
              require_once('bracket/arpBracket.php');
-             $brackets  = new arpBracket( );
-            
+             $brackets  = new arpBracket( );             
              $play_bronze = true;             
              // generates a bracket with 16 round and 3rd place match
              $brackets->build_empty_brackets($players, $play_bronze);

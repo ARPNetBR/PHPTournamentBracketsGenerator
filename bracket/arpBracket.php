@@ -1,4 +1,19 @@
 <?php 
+/**
+ * Name:    Arp Brackets
+ * Author:  Andre Pereira
+ *           aroberto27@gmail.com
+ 
+ * Created:  18.04.2021
+ *
+ * Description:  Easy way to generate tournament brackets using only php and styles sheets no js is required 
+ *
+ * Requirements: PHP5.6 or above
+ *
+ * @package    PHPTournamentBracketsGenerator
+ * @author     Andre Pereira
+ * @link       https://github.com/ARPNetBR/PHPTournamentBracketsGenerator
+ */
 
 class arpBracket {
     
@@ -6,12 +21,14 @@ class arpBracket {
     
     public function __construct() 
     {
-       
+       #code
     }
 
 
   /**
-   *  build empty brackets   
+   *  Build empty brackets 
+   * @param integer $players
+   * @param boolean $play_bronze  
    */    
   public function build_empty_brackets($players = 256, $play_bronze = true)
   {
@@ -27,6 +44,9 @@ class arpBracket {
   }
 
     /**
+     * Calculate number or rounds, based on total players
+     * @param integer $total_players
+     * @param boolean $play_bronze
      * @return number of rounds     
      */
     protected function calculate_rounds($total_players,$play_bronze)
@@ -42,7 +62,7 @@ class arpBracket {
       for($i=0;$i<8;$i++){
         $n = $n == null ?  $total_players : $n;
         $n = $n / 2;
-      // $rounds[ ] = $n;
+      
         if($n == 1):
           if($play_bronze)
             $rounds[ ] = 2;
@@ -57,6 +77,8 @@ class arpBracket {
 
     /**
      * build rounds with 3rd place  in the brackets
+     * @param array $rounds
+     * @return string 
      */
     protected function build_rounds_w_bronze($rounds)
     { 
@@ -79,6 +101,8 @@ class arpBracket {
 
      /**
      * build rounds without 3rd place in the brackets
+     * @param array $rounds
+     * @return string 
      */
     protected function build_rounds($rounds)
     {      
@@ -95,7 +119,10 @@ class arpBracket {
     }
 
     /**
-     * open round and at round/matches counter at top of bracket
+     * @param integer $round
+     * @param integer $match_no
+     * @param string  $round_title
+     * @return string
      */
     protected function open_round($round, $match_no, $round_title)
     {     
@@ -109,19 +136,26 @@ class arpBracket {
     }
 
     /**
-     * @return html element to close round
+     * @return string
      */
     protected function close_round()
     {
       echo "</div>";
     }
 
+
     /**
-     * @return brackets styles sheet
+     * @param array $rounds 
+     * @param boolean $write
+     * @return string brackets
+     * to increase performance, can be generate the style for all 256 matches 
+     * and add to a .css file
      */
     protected function add_bracket_style($rounds)
     { 
-      $style ="<style>\n";
+      $style = "";
+      if(!$write)  
+        $style .="<style>\n";
       $size = @count($rounds);
       unset($rounds[0]);
 
@@ -135,15 +169,14 @@ class arpBracket {
           $style .= ".round .match-{$r}-{$i}{ margin-top:{$margin}em; }\n";
         endfor;
       }
-
-      // .round .match-2-1{ margin-top:7em; }
-
       $style .= "</style>";
-     echo $style;
-    
+      echo $style;    
     }
 
-    /** #return distance between each match according the round */
+    /** #return distance between each match according the round 
+     * @param integer $round
+     * @param integer $match
+    */
     protected function round_step($round,$match)
     { 
         switch($round):
@@ -195,6 +228,11 @@ class arpBracket {
      
     }
 
+    /**
+     * @param integer $round
+     * @param string $match
+     * @param boolean $final_round
+     */
     protected function add_match($round, $match,  $final_round = false)
     {	
       $connector = '';
