@@ -152,10 +152,8 @@ class arpBracket {
      * and add to a .css file
      */
     protected function add_bracket_style($rounds)
-    { 
-      $style = "";
-      if(!$write)  
-        $style .="<style>\n";
+    {
+      $style = "<style>\n";
       $size = @count($rounds);
       unset($rounds[0]);
 
