@@ -1,6 +1,5 @@
 <?php  
- require_once('bracket/arp.php');
- require_once('bracket/arpBracket.php');
+ require_once('bracket/arp.php'); 
  require_once('bracket/dummyData.php');
 
 ?>
@@ -16,26 +15,12 @@
 
 </head>
 <body>
-<div class="bracket-wrapper">
-    <div class="bracket">
         <?php 
-            // $dummy = new dummyData();
-            // $brackets  = new arpBrackets(  );  
+            
             $players = @$_GET['players'];
             if($players <= 0)  $players = 16;
-
-            $bronze =  @$_GET['bronze'];
-            // $play_bronze = true;   
-
-            // $game_data = $dummy->generate_dummy_data($players,$play_bronze)    ;         
-            // $brackets->build_brackets($game_data,$play_bronze);
-      ?>
-    </div>
-</div>
-
-<hr>
-<!-- ********************************************************************* -->
-<?php 
+            $bronze =  @$_GET['bronze'];                  
+    
   $dummy = new dummyData();
   $brackets  = new arpBracket(  );  
   $brackets->set_players( $players ); // set number of playres
@@ -57,9 +42,9 @@
   $rounds = $brackets->get_rounds();  
 
   $game_data = $dummy->get_dummy_data( $brackets->get_rounds() );
-
  
   $brackets->draw_single_elimination( );  
+  $brackets->set_direction('ltr'); // calculate number of rounds  
   $brackets->draw_single_elimination($game_data);
 
 //   var_dump(($rounds));
