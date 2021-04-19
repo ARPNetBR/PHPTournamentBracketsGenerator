@@ -117,7 +117,8 @@ div.round{
 .match-details{
   width: 14em;
   height:2em;  
-  margin-left:1em 
+  padding-left:1em;
+  padding-top:.5em
 }
 
 .team-container  .team-win{

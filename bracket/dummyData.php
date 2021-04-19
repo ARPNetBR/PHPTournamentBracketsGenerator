@@ -81,7 +81,7 @@ protected $teams = [
                     'team_2' => $this->teams[$team2],
                     'score_1'  => $this->score[$score1],
                     'score_2' => $this->score[$score2],
-                    'details' => '<a href="#">link</a>',
+                    'details' => '<a href="#">details</a>',
                     'winner'  => $win,
                     'tiebreaker' => $tie
                 ];
