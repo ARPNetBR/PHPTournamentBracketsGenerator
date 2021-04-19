@@ -1,8 +1,23 @@
 <?php
+/**
+ * Name:    Arp Brackets
+ * Author:  Andre Pereira
+ *           aroberto27@gmail.com
+ 
+ * Created:  18.04.2021
+ *
+ * Description:  Easy way to generate tournament brackets using only php and styles sheets no js is required 
+ *
+ * Requirements: PHP5.6 or above
+ *
+ * @package    PHPTournamentBracketsGenerator
+ * @author     Andre Pereira
+ * @link       https://github.com/ARPNetBR/PHPTournamentBracketsGenerator
+ */ 
 
  
 
-class arpBracket{
+class arpBrackets{
 
     private $use_css = true; // calculate rounds css on the fly    
 
@@ -48,6 +63,10 @@ class arpBracket{
 
     public const RIGHT2LEFT = 'rtl';
 
+    public const MAX_PLAYERS = 256;
+
+    public const MIN_PLAYERS = 4;
+
 /*************************************************************************************************
  *************************PUBLIC    SECTION*******************************************************  
  *************************************************************************************************/          
@@ -66,7 +85,6 @@ class arpBracket{
      */
     public function draw_single_elimination($round_data = null)
     {   
-
         if($this->bracket_diretion === self::LEFT2RIGHT)
             $this->_single_ltr($round_data);
         if($this->bracket_diretion === self::RIGHT2LEFT)
@@ -79,18 +97,28 @@ class arpBracket{
     {   
         $bye_players = 0; 
 
-        if($num_players > $this->max_players)
-            throw new Exception("The max. number of players allowed is 256");        
+        if($num_players > self::MAX_PLAYERS)
+            throw new Exception("The max. number of players allowed is {self::MAX_PLAYERS}");        
 
+        if($num_players < self::MIN_PLAYERS)
+            throw new Exception("The min. number of players allowed is {self::MIN_PLAYERS}");        
+
+        if($num_players > 16 ):
+            $mod = 16;
+        elseif($num_players > 8):
+            $mod = 8;
+        else:
+            $mod = 4;
+        endif;
         /**
          * check//add bye players limit
          */
-        // if( $num_players % 16 > 0):
-        //     while( ( $num_players % 16 ) > 0) :
-        //           $bye_players++;
-        //           $num_players++;
-        //     endwhile;
-        // endif; 
+        if( $num_players % $mod > 0):
+            while( ( $num_players % $mod ) > 0) :
+                  $bye_players++;
+                  $num_players++;
+            endwhile;
+        endif; 
 
         if($bye_players > $this->max_bye_players)
              throw new Exception("The max. number of bye players allowed is" . $this->max_bye_players . 'and were created '. $bye_players);
@@ -141,12 +169,10 @@ class arpBracket{
     public function set_titles($var)
     {
         $this->use_titles = $var;        
-        /* init rounds with std name */
-        if( empty($this->rounds_title) ):
-            for($i=1; $i<=8; $i++):
+        /* init rounds with std name */      
+        for($i=1; $i<=8; $i++):
                 $this->rounds_title[$i] = "{$this->header_round_label} {$i}";
-            endfor;
-        endif;
+        endfor;        
     }
     /**
      * set the round title by round number     
@@ -186,8 +212,7 @@ class arpBracket{
         $key     = 0;  
 
           // max 256 players .. to allow more increase var $i<8
-        for($i=0;$i<8;$i++):         
-          
+        for($i=0;$i<8;$i++):       
           $matches = $matches == null ?  $this->players : $matches;        
           $matches = $matches / 2;
           $rounds[$key]['round']  = $key + 1;

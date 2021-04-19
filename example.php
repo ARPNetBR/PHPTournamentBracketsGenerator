@@ -1,5 +1,5 @@
 <?php  
- require_once('bracket/arp.php'); 
+ require_once('bracket/arpBrackets.php'); 
  require_once('bracket/dummyData.php');
 
 ?>
@@ -22,35 +22,36 @@
             $bronze =  @$_GET['bronze'];                  
     
   $dummy = new dummyData();
-  $brackets  = new arpBracket(  );  
-  $brackets->set_players( $players ); // set number of playres
-
-  $brackets->set_bronze_round($bronze); // enable bronze round
-
-  $brackets->css_on_the_fly(true); // enable css calculation on the fly
-
-  $brackets->set_match_label('Jogos');
-
-  $brackets->set_round_label('Fase'); // if needed, must be called before set_titles
-
-  $brackets->set_titles(true); // enable round title
-
-//   $brackets->set_round_title(...,..); not need to invoce set_titles, it enables  
-  $brackets->set_direction('rtl'); // calculate number of rounds  
-
-  $brackets->calculate_rounds(); // calculate number of rounds
-  $rounds = $brackets->get_rounds();  
-
-  $game_data = $dummy->get_dummy_data( $brackets->get_rounds() );
+  $brackets  = new arpBrackets(  );  
  
+  // set number of players or u just can pass it to constructor
+  $brackets->set_players( $players ); 
+
+  // enable/disable bronze round
+  $brackets->set_bronze_round($bronze); 
+
+   // enable css calculation on the fly
+  $brackets->css_on_the_fly(true);
+
+    // set header match label
+  $brackets->set_match_label('Games'); 
+
+    // set header std round label + round number eg. Round 1 , Round 2 and so on    
+  $brackets->set_round_label('Round'); 
+
+    // enable/disable round title to be shown
+  $brackets->set_titles(true); 
+    // calculate number of rounds
+  $brackets->calculate_rounds(); 
+    // build empty single elimination bracket
   $brackets->draw_single_elimination( );  
-  $brackets->set_direction('ltr'); // calculate number of rounds  
+   
+  
+                                        // retrieve rounds to add game data
+  $game_data = $dummy->get_dummy_data( $brackets->get_rounds() );
+  $brackets->set_direction('rtl'); // set rtl direction
+  // build single elimination bracket with match data
   $brackets->draw_single_elimination($game_data);
-
-//   var_dump(($rounds));
-//   var_dump(array_reverse($rounds));
-//   return;
-
 ?>
 </body>
 </html>
