@@ -70,9 +70,11 @@ protected $teams = [
                 $team2 = rand(0,$names);
                 $score1 = rand(0,$scor);
                 $score2 = rand(0,$scor);
-                $win = '';
+                $win = ''; $tie = '';
                 if($this->score[$score1] > $this->score[$score2]) { $win = '1'; }
                 if($this->score[$score1] < $this->score[$score2]) { $win = '2'; }
+                if($this->score[$score1] < $this->score[$score2]) { $win = '2'; }
+                if($this->score[$score1] == $this->score[$score2]) { $win = rand(1,2); $tie = '5-4 pk'; }
     
                 $game_data[] = [
                     'team_1'  => $this->teams[$team1],
@@ -81,7 +83,7 @@ protected $teams = [
                     'score_2' => $this->score[$score2],
                     'details' => '<a href="#">link</a>',
                     'winner'  => $win,
-                    'tiebreaker' => ''
+                    'tiebreaker' => $tie
                 ];
             endfor;
            

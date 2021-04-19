@@ -43,6 +43,11 @@ class arpBracket {
     endif;
   }
 
+  /**
+   *  Build  brackets with game data
+   * @param array $rounds
+   * @param boolean $play_bronze  
+   */ 
   public function build_brackets($rounds,$play_bronze)
   {   
     
