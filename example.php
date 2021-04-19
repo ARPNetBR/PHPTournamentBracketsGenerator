@@ -1,4 +1,7 @@
-<?php include 'bracket/bracket_gen.php';?>
+<?php  require_once('bracket/arpBracket.php');
+require_once('bracket/dummyData.php');
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,15 +17,15 @@
 <div class="bracket-wrapper">
     <div class="bracket">
         <?php 
+            $dummy = new dummyData();
+            $brackets  = new arpBracket( );   
 
             $players = $_GET['players'];
             if($players <= 0)  $players = 16;
+            $play_bronze = true;   
 
-             require_once('bracket/arpBracket.php');
-             $brackets  = new arpBracket( );             
-             $play_bronze = true;             
-             // generates a bracket with 16 round and 3rd place match
-             $brackets->build_empty_brackets($players, $play_bronze);
+            $game_data = $dummy->generate_dummy_data($players,$play_bronze)    ;         
+            $brackets->build_brackets($game_data,$play_bronze);
       ?>
     </div>
 </div>
@@ -32,14 +35,20 @@
 <div class="bracket-wrapper">
     <div class="bracket">
         <?php 
-             require_once('bracket/arpBracket.php');
-             $play_bronze = false;
-             $brackets  = new arpBracket( );
+             $play_bronze = false;         
              $brackets->build_empty_brackets($players, $play_bronze);
       ?>
     </div>
 </div>
 
+
+<?php
+
+
+
+
+
+?>
 
 </body>
 </html>

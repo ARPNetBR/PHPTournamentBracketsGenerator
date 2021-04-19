@@ -64,6 +64,12 @@ div.round{
   border-top-left-radius: 5px;	
   
 }
+
+.label{
+  width:84%;
+  display:inline-block
+}
+
 .team-container  .bottom{  
   border-bottom-right-radius: 5px;	
   border-bottom-left-radius: 5px;	   
