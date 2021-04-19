@@ -18,7 +18,7 @@ body{
 }
 .bracket{  
   width: 170em;
-  overflow-x:auto
+  overflow-x:auto;  
 }
 
 div.round{
@@ -81,11 +81,10 @@ div.round{
   width:75%;  
 }
 
-.pk{
+.pk, .tiebreaker{
   position: absolute;
   float: right;
-  left:14.2em;
- 
+  left:14.2em; 
   width: 3em;  
 }
 
@@ -122,8 +121,10 @@ div.round{
 }
 
 .team-container  .team-win{
-  background-color: #FFD700
+  background-color: #FFD700  
 }
-
+.team-container  .team-win-tie{
+  background-color: #999
+}
 
 
