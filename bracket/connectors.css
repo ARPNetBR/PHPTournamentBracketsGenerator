@@ -1,0 +1,137 @@
+
+.connector-top-1{
+  border-bottom:0;
+  height:5em;
+  right:-3em;
+  top:3em;
+  border-bottom-right-radius: 0;
+}
+.connector-bottom-1{  
+  height:5em;
+  right:-3em;
+  top:-2em;
+  border-top-right-radius: 0;
+  border-top:0;
+}
+/* .c-h1{   
+    
+}   */
+
+  /** connector  round 2 **/
+.connector-top-2{
+    border-bottom:0;
+    height:10em;
+    right:-3em;
+    top:3em;
+    border-bottom-right-radius: 0;
+}
+.connector-bottom-2{  
+    height:10.2em;
+    right:-3em;
+    top:-7em;
+    border-top-right-radius: 0;
+    border-top:0;
+  }
+.c-h2{
+    left:2.9em;
+    top:9.8em;  
+}  
+
+  /** connector  round 3 **/
+.connector-top-3{
+    border-bottom:0;
+    height:30em;
+    right:-3em;
+    top:3em;
+    border-bottom-right-radius: 0;
+}
+.connector-bottom-3{  
+    height:10.2em;
+    right:-3em;
+    top:-7em;
+    border-top-right-radius: 0;
+    border-top:0;
+  }
+.c-h3{
+    left:2.9em;
+    top:19.8em;  
+}  
+
+  /** connector  round 4 **/
+.connector-top-4{
+    border-bottom:0;
+    height:70em;
+    right:-3em;
+    top:3em;
+    border-bottom-right-radius: 0;
+}
+
+.connector-bottom-4{  
+    height:10.2em;
+    right:-3em;
+    top:-7em;
+    border-top-right-radius: 0;
+    border-top:0;
+  }
+.c-h4{
+    left:2.9em;
+    top:39.8em;  
+}  
+  /** connector  round 5 **/
+.connector-top-5{
+  border-bottom:0;
+  height:150em;
+  right:-3em;
+  top:3em;
+  border-bottom-right-radius: 0;
+}
+.connector-bottom-5{  
+  height:10.2em;
+  right:-3em;
+  top:-7em;
+  border-top-right-radius: 0;
+  border-top:0;
+}
+.c-h5{
+  left:2.9em;
+  top:79.8em;  
+}  
+  /** connector  round 6 **/
+.connector-top-6{
+  border-bottom:0;
+  height:310em;
+  right:-3em;
+  top:3em;
+  border-bottom-right-radius: 0;
+}
+.connector-bottom-6{  
+  height:10.2em;
+  right:-3em;
+  top:-7em;
+  border-top-right-radius: 0;
+  border-top:0;
+}
+.c-h6{
+  left:2.9em;
+  top:159.8em;  
+}  
+  /** connector  round 7 **/
+.connector-top-7{
+  border-bottom:0;
+  height:630em;
+  right:-3em;
+  top:3em;
+  border-bottom-right-radius: 0;
+}
+.connector-bottom-7{  
+  height:10.2em;
+  right:-3em;
+  top:-7em;
+  border-top-right-radius: 0;
+  border-top:0;
+}
+.c-h7{
+  left:2.9em;
+  top:320em;  
+}  
+  /** connector  round 8 **/

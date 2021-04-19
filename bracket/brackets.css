@@ -1,0 +1,121 @@
+
+body{   
+    font-family: Arial, Helvetica, sans-serif;
+}
+::-webkit-scrollbar {
+  height: 8px;
+  overflow: visible;
+  width: 8px;
+}
+* {
+  box-sizing: border-box;
+}
+.bracket-wrapper{
+  width: 98vw;
+  padding:3em;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.bracket{  
+  width: 170em;
+  overflow-x:auto
+}
+
+div.round{
+  position: relative;
+  float: left;
+  width:20em;
+  height: auto;
+  display:block;  
+}
+.round .match{
+    position:relative;
+    display:block;
+  }
+.round-title{
+	height:3em;
+	padding-top:.3em;
+  width: 14em;
+	text-align:center;
+	border-bottom:2px solid #ddd;
+	margin-bottom:2em;
+  
+}
+
+.team-container{
+    position: relative;
+    float: left;    
+}
+.team-container .team{
+  width: 14em;
+  height:3em;
+  padding:1em 0 0 1em;  
+  background:#ddd  ;
+  font-weight:700;
+
+  border-top:2px solid #aaa;
+  border-right:2px solid #aaa;
+  border-left:2px solid #aaa;
+  border-bottom:2px solid #aaa;
+}
+.team-container  .top{  
+  border-bottom:0;
+  border-top-right-radius: 5px;	
+  border-top-left-radius: 5px;	
+  
+}
+.team-container  .bottom{  
+  border-bottom-right-radius: 5px;	
+  border-bottom-left-radius: 5px;	   
+  border-top:2px solid  #fff;  
+}
+
+
+.team-container .team .label{
+  width:75%;  
+}
+
+.pk{
+  position: absolute;
+  float: right;
+  left:14.2em;
+ 
+  width: 3em;  
+}
+
+
+.team-container .team .label,
+.team-container .team .score{
+  float:left;
+}
+.connector{
+  width:3em;  
+  border:2px solid #aaa;
+  border-left:0;  
+  position:absolute; 
+  border-top-right-radius: 15px;	
+  border-bottom-right-radius: 15px;	
+  
+}
+.connector-h{
+  width:3em;
+  height:3em;
+  border-top:2px solid #aaa;
+  border-left:0;
+  float:right;
+  position:absolute;
+  left:2.9em;
+  top:4.8em;  
+ 
+}
+.match-details{
+  width: 14em;
+  height:2em;   
+}
+
+.team-container  .team-win{
+  background-color: #FFD700
+}
+
+
+
