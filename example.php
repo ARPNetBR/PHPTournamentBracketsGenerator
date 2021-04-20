@@ -9,12 +9,51 @@
 <meta http-equiv="Content-Type" content="image/jpeg; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Untitled Document</title>
-
+<link href="../../../e_sports/public/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="bracket/brackets.css"   rel="stylesheet">
 <link href="bracket/connectors.css" rel="stylesheet">
 
 </head>
 <body>
+<style>
+.trophy-gold{
+  color:#d4af37;
+  font-size:2em
+}
+.trophy-silver{
+  color:#aaa9ad ;
+  font-size:2em
+}
+.trophy-bronze{
+  color:#cd7f32;
+  font-size:2em
+}
+.podium-place{
+  border:1px solid #ddd;
+  padding:.5em 1em;
+  
+}
+.first{
+  border-top-right-radius:5px;
+  border-top-left-radius:5px;
+  border-bottom:0;
+}
+.third{
+  border-bottom-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-top:0;
+  padding-left:1.4em
+}
+.winner-img{
+  width:40px;
+  height:40px;
+  border-radius:50px;
+ background-color:#ddd;
+ /* padding-top:1em */
+}
+</style>
+
+Playofss 32 jogos
         <?php 
             
             $players = @$_GET['players'];
@@ -40,18 +79,29 @@
   $brackets->set_round_label('Round'); 
 
     // enable/disable round title to be shown
-  $brackets->set_titles(true); 
+  $brackets->set_titles(false); 
     // calculate number of rounds
   $brackets->calculate_rounds(); 
+  
     // build empty single elimination bracket
   $brackets->draw_single_elimination( );  
    
   
                                         // retrieve rounds to add game data
   $game_data = $dummy->get_dummy_data( $brackets->get_rounds() );
-  $brackets->set_direction('rtl'); // set rtl direction
+  
+  // $rlt = array_reverse($game_data);
+  // $size = count($rlt) - 1;
+  // unset($rlt[$size]);
+  // $output = array_merge( $game_data , $rlt ) ;
+  //  var_dump($output);
+  // return;
+
+  $brackets->set_direction($brackets::RIGHT2LEFT); // set rtl direction
   // build single elimination bracket with match data
   $brackets->draw_single_elimination($game_data);
 ?>
+
+
 </body>
 </html>

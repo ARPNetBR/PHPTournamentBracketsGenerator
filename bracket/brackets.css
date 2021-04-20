@@ -28,6 +28,13 @@ div.round{
   height: auto;
   display:block;  
 }
+div.podium{
+  position: relative;
+  float: left;
+  width:20em;
+  height: auto;
+  display:block;  
+}
 .round .match{
     position:relative;
     display:block;

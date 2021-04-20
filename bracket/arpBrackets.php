@@ -33,19 +33,21 @@ class arpBrackets{
 
     private $bracket_diretion = "ltr"; // rtl //2sides
 
-    private $empty_bracket = true;
+    private $empty_bracket = true;   // generates the bracket empty
  
-    private $rounds;
+    private $rounds;        // array with rounds and game data
  
     private $rounds_title; // array with round titles
  
-    private $use_title = false;   
+    private $use_title = false;   // print title on each round
 
-    private $header_match_label = "Matches";
+    private $header_match_label = "Matches";  // header label default label + total matches
 
-    private $header_round_label = "Round";
+    private $header_round_label = "Round";   // header label to round def. labal + round no
 
-    private $debug = false;
+    private $show_podium   = true;   // enable/disable showing poding after final round
+
+    
  
     public const CSS_MARGIN = [
                 [ '0','0' ],     
@@ -62,6 +64,8 @@ class arpBrackets{
     public const LEFT2RIGHT = 'ltr';
 
     public const RIGHT2LEFT = 'rtl';
+
+    public const BOTH       = 'both';
 
     public const MAX_PLAYERS = 256;
 
@@ -143,6 +147,7 @@ class arpBrackets{
     {
         $this->bracket_diretion = $direction;
     }
+
     /**
      * @param boolean $play_bronze
      */
@@ -183,6 +188,15 @@ class arpBrackets{
         $this->rounds_title = $titles;
     } 
 
+    /**
+     * enables/disables podium data
+     * @param boolean $var
+     * @return void
+     */
+    public function show_podium($var)
+    {
+        $this->show_podium = $var;
+    }
     /**
      * set default match label
      * @param string $label
@@ -250,11 +264,6 @@ class arpBrackets{
         return @count($this->rounds);
     }
 
-
-    public function enable_debug()
-    {
-        $this->debug = true;
-    }
 /*************************************************************************************************
  *************************PROTECTED SECTION*******************************************************  
  *************************************************************************************************/
@@ -288,6 +297,10 @@ class arpBrackets{
 
             $this->_add_match($round,$con,$is_final_round, $game_data );
             endfor;  
+
+            if($is_final_round && $this->show_podium)
+                $this->_add_podium(self::LEFT2RIGHT);
+
             $this->_close_round();
         endforeach;
         $this->_close_bracket( );
@@ -323,8 +336,13 @@ class arpBrackets{
 
             $this->_add_match($round,$con,$is_final_round, $game_data );
             endfor;  
+            
+            if($is_final_round && $this->show_podium)
+                $this->_add_podium(self::RIGHT2LEFT);
+
             $this->_close_round();
         endforeach;
+     
         $this->_close_bracket( );
     }
 
@@ -376,6 +394,9 @@ class arpBrackets{
                   $style .= ".round .match-{$r}-{$i}{ margin-top:{$margin}em; }\n";
                 endfor;
             endforeach;
+            /** add styel to trophy */
+            $margin += 40;
+          //  $style .= ".podium{ margin-top:{$margin}em; }\n";
         endif;
         $style .= "</style>";       
         echo $style;          
@@ -440,7 +461,7 @@ class arpBrackets{
         $win2 = 'team-win';        
       if($tie1 > $tie2)  
         $win1 = 'team-win-tie';        
-      if($tie2 > $tie2)  
+      if($tie2 > $tie1)  
         $win2 = 'team-win-tie';        
 	
       $data = '
@@ -473,6 +494,33 @@ class arpBrackets{
       echo $data;
     }
 
+    /**
+     * add podium right after final match
+     * @return string html
+     */
+    protected function _add_podium($direction)
+    {
+        $data = '<div class="podium">
+        <div class="podium-place" style="border:0">
+            Winners
+          </div>
+          <div class="podium-place first">
+           <i class="fas fa-trophy  trophy-gold"></i> 
+           <span class="">1st</span>
+
+           
+          </div>
+          <div class="podium-place">
+            <i class="fas fa-medal trophy-silver"></i> 2nd
+          </div>';
+          if($this->play_bronze_round):
+            $data .= '<div class="podium-place third">
+                    <i class="fas fa-award trophy-bronze"></i> 3rd
+                    </div>';
+          endif;
+          $data .= '</div>';
+          echo $data;
+    }
     /**
      * open round
      * @param int $round
