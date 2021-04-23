@@ -15,17 +15,11 @@
  * @link       https://github.com/ARPNetBR/PHPTournamentBracketsGenerator
  */ 
 
- 
-
 class arpBrackets{
 
     private $use_css = true; // calculate rounds css on the fly    
 
-    private $max_players = 256; // max players covered, allowed values are 4,8,16,32,64,128,256 
-
     private $players; 
-
-    private $max_bye_players = 1; // max number of byes, be default we'll use one 
 
     private $play_bronze_round; // if true generate the bronze round
 
@@ -47,8 +41,7 @@ class arpBrackets{
 
     private $show_podium   = true;   // enable/disable showing poding after final round
 
-    
- 
+    // css margin for rounds 
     public const CSS_MARGIN = [
                 [ '0','0' ],     
                 [ '0','0' ],        // 1
@@ -67,9 +60,12 @@ class arpBrackets{
 
     public const BOTH       = 'both';
 
-    public const MAX_PLAYERS = 256;
+    public const MAX_PLAYERS = 256; // max players covered, allowed values are 4,8,16,32,64,128,256 
 
     public const MIN_PLAYERS = 4;
+
+    public const MAX_BYE     = 1;  // max number of byes, if total player does not feed all matches, one bye is add 
+                                   // you can increase this number, but there is no logic to balance matches and byes
 
 /*************************************************************************************************
  *************************PUBLIC    SECTION*******************************************************  
@@ -102,10 +98,10 @@ class arpBrackets{
         $bye_players = 0; 
 
         if($num_players > self::MAX_PLAYERS)
-            throw new Exception("The max. number of players allowed is {self::MAX_PLAYERS}");        
+            throw new Exception("The max. number of players allowed is " . self::MAX_PLAYERS);        
 
         if($num_players < self::MIN_PLAYERS)
-            throw new Exception("The min. number of players allowed is {self::MIN_PLAYERS}");        
+            throw new Exception("The min. number of players allowed is " . self::MIN_PLAYERS);        
 
         if($num_players > 16 ):
             $mod = 16;
@@ -124,8 +120,8 @@ class arpBrackets{
             endwhile;
         endif; 
 
-        if($bye_players > $this->max_bye_players)
-             throw new Exception("The max. number of bye players allowed is" . $this->max_bye_players . 'and were created '. $bye_players);
+        if($bye_players > self::MAX_BYE)
+             throw new Exception("The max. number of bye players allowed is" . self::MAX_BYE . ' and were created '. $bye_players);
 
         $this->players = $num_players;
     }
