@@ -67,8 +67,8 @@ require_once('bracket/dummyData.php');
     // generates some dummy data
     $game_data = $dummy->get_dummy_data( $brackets->get_rounds() );
     
-     // set rtl direction, rtl is the default diretion
-  // $brackets->set_direction($brackets::RIGHT2LEFT);
+     // set LTR direction, RTL is the default diretion
+  // $brackets->set_direction($brackets::LEFT2RIGHT);
   
     // build  single elimination bracket, to build an empty bracket do not pass $game_data array
     $brackets->draw_single_elimination( $game_data );  
