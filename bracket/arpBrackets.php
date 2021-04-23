@@ -175,7 +175,7 @@ class arpBrackets{
     {
         $this->use_titles = $var;        
         /* init rounds with std name */   
-        if($this->use_titles):
+        if($this->use_titles && count($this->rounds_title) <= 0):
             for($i=1; $i<=8; $i++):
                     $this->rounds_title[$i] = "{$this->header_round_label} {$i}";
             endfor;        
