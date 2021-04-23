@@ -39,7 +39,7 @@ class arpBrackets{
  
     private $rounds_title; // array with round titles
  
-    private $use_title = false;   // print title on each round
+    private $use_titles = false;   // print title on each round
 
     private $header_match_label = "Matches";  // header label default label + total matches
 
@@ -174,10 +174,12 @@ class arpBrackets{
     public function set_titles($var)
     {
         $this->use_titles = $var;        
-        /* init rounds with std name */      
-        for($i=1; $i<=8; $i++):
-                $this->rounds_title[$i] = "{$this->header_round_label} {$i}";
-        endfor;        
+        /* init rounds with std name */   
+        if($this->use_titles):
+            for($i=1; $i<=8; $i++):
+                    $this->rounds_title[$i] = "{$this->header_round_label} {$i}";
+            endfor;        
+        endif;
     }
     /**
      * set the round title by round number     
@@ -391,15 +393,17 @@ class arpBrackets{
                 $r = $val['round'];
                 for($i=1; $i<=$val['matches']; $i++):
                   $margin = $this->_get_round_css_margin($r,$i);
+                  
+                  if(!$this->use_titles)
+                    $margin = $margin - 2;
                   $style .= ".round .match-{$r}-{$i}{ margin-top:{$margin}em; }\n";
                 endfor;
-            endforeach;
-            /** add styel to trophy */
-            $margin += 40;
-          //  $style .= ".podium{ margin-top:{$margin}em; }\n";
+            endforeach;                       
         endif;
+           
         $style .= "</style>";       
         echo $style;          
+       
     }
 
     /**
@@ -423,47 +427,59 @@ class arpBrackets{
      */
     protected function _add_match($round, $match,  $final_round = false, $game_data = null)
     {	
-      $dir = $this->bracket_diretion;  
-      $connector = '';
-      $team1 ="&nbsp;";
-      $team2="&nbsp;";
-      $score1 ="--"; 
-      $score2 ="--";
-      $winner = '';
-      $tie1 ="";
-      $tie2 ="";
-      $details = "";
+        $dir = $this->bracket_diretion;  
+        $connector = '';
+        $team1 ="&nbsp;";
+        $team2="&nbsp;";
+        $score1 ="--"; 
+        $score2 ="--";
+        $winner = '';
+        $tie1 ="";
+        $tie2 ="";
+        $details = "";
     
-      if($game_data != null ):
-        $team1      = $game_data['team_1'];
-        $team2      = $game_data['team_2'];
-        $score1     = $game_data['score_1']; 
-        $score2     = $game_data['score_2'];
-        $winner     = $game_data['winner'];
-        $tie1       = $game_data['tie1'];
-        $tie2       = $game_data['tie2'];
-        $details    = $game_data['details'];
-      endif;
-
-      if(!$final_round) : 
-        if( $match % 2 == 0 ):
-          $connector = "bottom";          
-        else:
-          $connector = "top";
+        if($game_data != null ):
+            $team1      = $game_data['team_1'];
+            $team2      = $game_data['team_2'];
+            $score1     = $game_data['score_1']; 
+            $score2     = $game_data['score_2'];
+            $winner     = $game_data['winner'];
+            $tie1       = $game_data['tie1'];
+            $tie2       = $game_data['tie2'];
+            $details    = $game_data['details'];
         endif;
-      endif;
 
-      $match_count = $win1 = $win2 = $breaker1 = $breaker2 ="";
+        $winner_css = 'team-win';
+        $loser_css  = '';
+        $tie_css    = 'team-win-tie';
+        if($final_round):
+            $winner_css = 'team-champion';
+            $loser_css  = 'team-second';
+            $tie_css    = $winner_css;    
+        endif;
 
-      if($winner == 1)
-        $win1 = 'team-win';        
-      if($winner == 2)
-        $win2 = 'team-win';        
-      if($tie1 > $tie2)  
-        $win1 = 'team-win-tie';        
-      if($tie2 > $tie1)  
-        $win2 = 'team-win-tie';        
-	
+        /** if not final round , add the bracket connector */
+        if(!$final_round) : 
+            if( $match % 2 == 0 ):
+            $connector = "bottom";          
+            else:
+            $connector = "top";
+            endif;
+        endif;
+
+       
+        $win1 = $win2 = $loser_css;
+
+        if($winner == 1)
+            $win1 = $winner_css;        
+        if($winner == 2)
+            $win2 = $winner_css;   
+        if($tie1 > $tie2)  
+            $win1 = $tie_css;        
+        if($tie2 > $tie1)  
+            $win2 = $tie_css;        
+
+
       $data = '
       <div class="match match-'.$round.'-'.$match.'">
           <div class="team-container">';
@@ -553,8 +569,8 @@ class arpBrackets{
     protected function _open_bracket( )
     {   
         echo '
-            <div class="bracket-wrapper">
-            <div class="bracket">';
+            <div class="bracket-wrapper">            
+                <div class="bracket">';
     }
 
     /**
@@ -565,6 +581,12 @@ class arpBrackets{
         echo '
         </div>
         </div>';
+    }
+
+    protected function _add_playoffs_title( )
+    {
+        return
+        "<div class=\"bracket playoffs\">{$playoffs}</div>";
     }
 
 }

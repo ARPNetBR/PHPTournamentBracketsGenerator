@@ -1,6 +1,7 @@
 
 body{   
     font-family: Arial, Helvetica, sans-serif;
+    /* background-color: #111217; */
 }
 ::-webkit-scrollbar {
   height: 8px;
@@ -19,6 +20,12 @@ body{
 .bracket{  
   width: 170em;
   overflow-x:auto;  
+  /* color:#ddd */
+}
+
+.playoffs{  
+  display:block;
+  padding-left: 40vw;    
 }
 
 div.round{
@@ -57,13 +64,11 @@ div.podium{
   width: 14em;
   height:3em;
   padding:1em 0 0 1em;  
+  /* background:#1B1C23  ; */
   background:#ddd  ;
   font-weight:700;
 
-  border-top:2px solid #aaa;
-  border-right:2px solid #aaa;
-  border-left:2px solid #aaa;
-  border-bottom:2px solid #aaa;
+  border:2px solid #aaa;
 }
 .team-container  .top{  
   border-bottom:0;
@@ -100,26 +105,7 @@ div.podium{
 .team-container .team .score{
   float:left;
 }
-.connector{
-  width:3em;  
-  border:2px solid #aaa;
-  border-left:0;  
-  position:absolute; 
-  border-top-right-radius: 15px;	
-  border-bottom-right-radius: 15px;	
-  
-}
-.connector-h{
-  width:3em;
-  height:3em;
-  border-top:2px solid #aaa;
-  border-left:0;
-  float:right;
-  position:absolute;
-  left:2.9em;
-  top:4.8em;  
- 
-}
+
 .match-details{
   width: 14em;
   height:2em;  
@@ -128,8 +114,20 @@ div.podium{
 }
 
 .team-container  .team-win{
-  background-color: #FFD700  
+  background-color: #aaa  
 }
+
+.team-container .team-champion{
+  background-color: #BC952C;
+}
+
+.team-container .team-second{
+  background-color: #ACACAC  
+}
+.team-container .team-third{
+  background-color: #8C612D  
+}
+
 .team-container  .team-win-tie{
   background-color: #999
 }

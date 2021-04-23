@@ -9,7 +9,6 @@
 <meta http-equiv="Content-Type" content="image/jpeg; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Untitled Document</title>
-<link href="../../../e_sports/public/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="bracket/brackets.css"   rel="stylesheet">
 <link href="bracket/connectors.css" rel="stylesheet">
 
@@ -53,14 +52,14 @@
 }
 </style>
 
-Playofss 32 jogos
         <?php 
             
             $players = @$_GET['players'];
             if($players <= 0)  $players = 16;
             $bronze =  @$_GET['bronze'];                  
-    
+     
   $dummy = new dummyData();
+  $brackets1  = new arpBrackets(  );  
   $brackets  = new arpBrackets(  );  
  
   // set number of players or u just can pass it to constructor
@@ -68,6 +67,9 @@ Playofss 32 jogos
 
   // enable/disable bronze round
   $brackets->set_bronze_round($bronze); 
+
+  // display podium after last match
+  $brackets->show_podium(false);
 
    // enable css calculation on the fly
   $brackets->css_on_the_fly(true);
@@ -80,26 +82,42 @@ Playofss 32 jogos
 
     // enable/disable round title to be shown
   $brackets->set_titles(false); 
-    // calculate number of rounds
-  $brackets->calculate_rounds(); 
+
   
+    // calculate number of rounds
+  $brackets->calculate_rounds();
+  
+  $game_data = $dummy->get_dummy_data( $brackets->get_rounds() );
+  
+  // $brackets->set_direction($brackets::RIGHT2LEFT); // set rtl direction
     // build empty single elimination bracket
-  $brackets->draw_single_elimination( );  
-   
+  $brackets->draw_single_elimination( $game_data );  
+   return;
   
                                         // retrieve rounds to add game data
   $game_data = $dummy->get_dummy_data( $brackets->get_rounds() );
-  
-  // $rlt = array_reverse($game_data);
-  // $size = count($rlt) - 1;
-  // unset($rlt[$size]);
-  // $output = array_merge( $game_data , $rlt ) ;
-  //  var_dump($output);
-  // return;
 
-  $brackets->set_direction($brackets::RIGHT2LEFT); // set rtl direction
+  
+  $brackets1->set_players( $players ); 
+  // enable/disable bronze round
+  $brackets1->set_bronze_round($bronze); 
+  // display podium after last match
+  $brackets1->show_podium(false);
+   // enable css calculation on the fly
+  $brackets1->css_on_the_fly(true);
+    // set header match label
+  $brackets1->set_match_label('Games'); 
+    // set header std round label + round number eg. Round 1 , Round 2 and so on    
+  $brackets1->set_round_label('Round'); 
+    // enable/disable round title to be shown
+  
+    // calculate number of rounds
+  $brackets1->calculate_rounds();   
+   // enable/disable round title to be shown
+   $brackets1->set_titles(true); 
+  $brackets1->set_direction($brackets::RIGHT2LEFT); // set rtl direction
   // build single elimination bracket with match data
-  $brackets->draw_single_elimination($game_data);
+  $brackets1->draw_single_elimination($game_data);
 ?>
 
 

@@ -1,4 +1,24 @@
-
+.connector{
+  width:3em;  
+  border:2px solid #aaa;
+  border-left:0;  
+  position:absolute; 
+  border-top-right-radius: 15px;	
+  border-bottom-right-radius: 15px;	
+  
+}
+.connector-h{
+  width:3em;
+  height:3em;
+  /* border-top:2px solid #1B1C23; */
+  border-top:2px solid #aaa;
+  border-left:0;
+  float:right;
+  position:absolute;
+  left:2.9em;
+  top:4.8em;  
+ 
+}
 .connector-top-1{
   border-bottom:0;
   height:5em;
