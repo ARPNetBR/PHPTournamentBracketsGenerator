@@ -73,5 +73,6 @@ require_once('bracket/dummyData.php');
     // build  single elimination bracket, to build an empty bracket do not pass $game_data array
     $brackets->draw_single_elimination( $game_data );  
     
-    ![image](https://user-images.githubusercontent.com/48767004/217975119-af7c9687-ee63-49c6-8ad3-889f1948babd.png)
+    ![brackets](https://user-images.githubusercontent.com/48767004/217975377-5382d8d0-2afb-4856-8cd4-e999c5529548.JPG)
+
 
